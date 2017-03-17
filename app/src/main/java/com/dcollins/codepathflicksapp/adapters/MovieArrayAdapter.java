@@ -15,11 +15,20 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import static com.dcollins.codepathflicksapp.R.id.tvOverview;
+import static com.dcollins.codepathflicksapp.R.id.tvTitle;
+
 /**
  * Created by dcollins on 3/17/17.
  */
 
 public class MovieArrayAdapter extends ArrayAdapter<Movie> {
+
+    private static class ViewHolder {
+        ImageView poster;
+        TextView title;
+        TextView overview;
+    }
 
     public MovieArrayAdapter(Context context, List<Movie> movies) {
         super(context, android.R.layout.simple_list_item_1, movies);
@@ -28,28 +37,34 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // get the data item for position
+
+        // Get the data item for position
         Movie movie = getItem(position);
 
-        // check the existing view being reused
+        // Check if an existing view is being reused, otherwise inflate the view
+        ViewHolder viewHolder;
         if (convertView == null) {
+            // If there's no view to re-use, inflate a brand new view for row
+            viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_movie, parent, false);
+            viewHolder.poster = (ImageView) convertView.findViewById(R.id.ivMovieImage);
+            viewHolder.title = (TextView) convertView.findViewById(tvTitle);
+            viewHolder.overview = (TextView) convertView.findViewById(tvOverview);
+            // Cache the viewHolder object inside the fresh view
+            convertView.setTag(viewHolder);
+        } else {
+            // View is being recycled, retrieve the viewHolder object from tag
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        // find the image view
-        ImageView ivImage = (ImageView) convertView.findViewById(R.id.ivMovieImage);
-        // clear out image from convertView
-        ivImage.setImageResource(0);
+        // Populate the data from the data object via the viewHolder boject
+        // into the template view.
+        viewHolder.poster.setImageResource(0);
+        viewHolder.title.setText(movie.getOrignalTitle());
+        viewHolder.overview.setText(movie.getOverview());
 
-        TextView tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-        TextView tvOverview = (TextView) convertView.findViewById(R.id.tvOverview);
-
-        // populate data
-        tvTitle.setText(movie.getOrignalTitle());
-        tvOverview.setText(movie.getOverview());
-
-        Picasso.with(getContext()).load(movie.getPosterPath()).into(ivImage);
+        Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.poster);
 
         // return the view
         return convertView;
