@@ -1,6 +1,7 @@
 package com.dcollins.codepathflicksapp.adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,8 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         // Get the data item for position
         Movie movie = getItem(position);
 
+        int orientation = getContext().getResources().getConfiguration().orientation;
+
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder;
         if (convertView == null) {
@@ -64,7 +67,11 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         viewHolder.title.setText(movie.getOrignalTitle());
         viewHolder.overview.setText(movie.getOverview());
 
-        Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.poster);
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.poster);
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Picasso.with(getContext()).load(movie.getBackdropPath()).into(viewHolder.poster);
+        }
 
         // return the view
         return convertView;
