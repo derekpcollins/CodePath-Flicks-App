@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.dcollins.codepathflicksapp.R;
 import com.dcollins.codepathflicksapp.models.Movie;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -47,6 +48,8 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         // populate data
         tvTitle.setText(movie.getOrignalTitle());
         tvOverview.setText(movie.getOverview());
+
+        Picasso.with(getContext()).load(movie.getPosterPath()).into(ivImage);
 
         // return the view
         return convertView;
