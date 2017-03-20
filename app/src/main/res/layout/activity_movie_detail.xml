@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:id="@+id/activity_movie_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context="com.dcollins.codepathflicksapp.MovieDetailActivity">
 
     <TextView
         tools:text="In the near future, a weary Logan cares for an ailing Professor X in a hide out on the Mexican border. But Logan's attempts to hide from the world and his legacy are up-ended when a young mutant arrives, being pursued by dark forces."
@@ -16,9 +18,7 @@
         android:layout_toEndOf="@+id/ivMovieImage"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
-        android:ellipsize="end"
-        android:maxLines="7"/>
+        android:layout_marginTop="5dp"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -42,4 +42,28 @@
         android:layout_alignTop="@+id/ivMovieImage"
         android:layout_alignLeft="@+id/tvOverview"
         android:layout_alignStart="@+id/tvOverview" />
+
+    <TextView
+        android:text="77%"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvOverview"
+        android:layout_alignLeft="@+id/tvOverview"
+        android:layout_alignStart="@+id/tvOverview"
+        android:layout_marginTop="15dp"
+        android:id="@+id/tvUserRating"
+        android:textColor="@android:color/darker_gray"/>
+
+    <TextView
+        android:text="2017"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvUserRating"
+        android:layout_toRightOf="@+id/tvUserRating"
+        android:layout_toEndOf="@+id/tvUserRating"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:id="@+id/tvReleaseDate"
+        android:textColor="@android:color/darker_gray"/>
+
 </RelativeLayout>

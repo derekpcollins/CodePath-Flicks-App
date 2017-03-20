@@ -1,8 +1,11 @@
 package com.dcollins.codepathflicksapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.dcollins.codepathflicksapp.adapters.MovieArrayAdapter;
@@ -58,5 +61,22 @@ public class MovieActivity extends AppCompatActivity {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
             }
         });
+
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Movie movie = (Movie) parent.getAdapter().getItem(position);
+                launchMovieDetailView(movie);
+            }
+        });
+    }
+
+    public void launchMovieDetailView(Movie movie) {
+        // The first parameter is the context, the second is the class of the activity to launch
+        Intent i = new Intent(MovieActivity.this, MovieDetailActivity.class);
+
+        i.putExtra("movie", movie);
+
+        startActivity(i); // Brings up the second activity
     }
 }
